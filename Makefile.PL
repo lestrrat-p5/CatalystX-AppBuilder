@@ -8,5 +8,6 @@ requires 'Moose'            => 0;
 requires 'namespace::clean' => 0;
 
 test_requires 'Test::More';
+auto_set_repository;
 
 WriteAll;
