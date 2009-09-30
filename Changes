@@ -1,5 +1,10 @@
 Changes
 =======
 
+0.00002 - Sep 30 2009
+    - Fix docs
+    - Warn when the same plugin is listed multiple times in the plugins
+      attribute
+
 0.00001 - Sep 29 2009
     - First release
