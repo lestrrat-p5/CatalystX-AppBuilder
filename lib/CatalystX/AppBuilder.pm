@@ -50,7 +50,7 @@ has plugins => (
 );
 
 sub _build_version      { '0.00001' }
-sub _build_superclasses { }
+sub _build_superclasses { [ 'Catalyst' ] }
 sub _build_config {
     my $self = shift;
     my %config = (
@@ -74,24 +74,21 @@ sub BUILD {
     my $appname = $self->appname;
     my $meta = Moose::Util::find_meta( $appname );
     if (! $meta || ! $appname->isa('Catalyst') ) {
-        my %config = ( version => $self->version );
-        if (my $superclasses = $self->superclasses) {
-            foreach my $class (reverse @$superclasses) {
-                if (! Class::MOP::is_class_loaded($class)) {
-                    Class::MOP::load_class($class);
-                }
-            }
-            $config{superclasses} = $superclasses;
+        if ($self->debug) {
+            print STDERR "Defining $appname via " . (blessed $self) . "\n";
         }
-
-        $meta = Moose::Meta::Class->create( $appname => %config );
+        $meta = Moose::Meta::Class->create(
+            $appname => (
+                version => $self->version,
+                superclasses => $self->superclasses
+            )
+        );
 
         if ($appname->isa('Catalyst')) {
             # Don't let the base class fool us!
             delete $appname->config->{home};
             delete $appname->config->{root};
         }
-
         # Fugly, I know, but we need to load Catalyst in the app's namespace
         # for manythings to take effect.
         eval <<"        EOCODE";
@@ -99,18 +96,29 @@ sub BUILD {
             use Catalyst;
         EOCODE
         die if $@;
+
     }
     return $meta;
 }
 
 sub bootstrap {
     my $self = shift;
+    my $runsetup = shift;
     my $appclass = $self->appname;
     $appclass->config( $self->config );
 
     my $caller = caller(1);
-    if ($caller eq 'main' || $ENV{HARNESS_ACTIVE}) {
-        $appclass->setup( @{ $self->plugins || [] } );
+    if ($runsetup || (defined $caller && $caller eq 'main') || $ENV{HARNESS_ACTIVE}) {
+        my @plugins;
+        my %plugins;
+        foreach my $plugin (@{ $self->plugins }) {
+            if ($plugins{$plugin}++) {
+                warn "$plugin appeaars multiple times in the plugin list! Ignoring...";
+            } else {
+                push @plugins, $plugin;
+            }
+        }
+        $appclass->setup( @plugins );
     }
 }
 
@@ -344,6 +352,10 @@ The config hash to give to the Catalyst application.
 The list of plugins to give to the Catalyst application.
 
 =head1 METHODS
+
+=head2 bootstrap($runsetup)
+
+Bootstraps the Catalyst app.
 
 =head2 inherited_path_to(@pathspec)
 
