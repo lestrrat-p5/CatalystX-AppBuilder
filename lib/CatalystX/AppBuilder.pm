@@ -96,7 +96,6 @@ sub BUILD {
             use Catalyst;
         EOCODE
         die if $@;
-
     }
     return $meta;
 }
@@ -136,7 +135,21 @@ sub inherited_path_to {
         push @inheritance, $class;
     }
 
-    return map { $_->path_to(@_)->stringify } @inheritance;
+    my @paths = @_;
+    return map {
+        my $m = $_;
+        $m =~ s/::/\//g;
+        $m .= '.pm';
+        my $f = Path::Class::File->new($INC{$m})->parent;
+        while ($f) {
+           if (-f $f->file('Makefile.PL') ) {
+               $f = $f->subdir(@paths)->stringify;
+               last;
+           }
+           $f = $f->parent;
+        }
+        $f;
+    } @inheritance;
 }
 
 sub app_path_to {
