@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00003 - Mar 01 2010
+    - Check for the existance of Makefile.PL to determine Catalyst root
+
 0.00002 - Sep 30 2009
     - Fix docs
     - Warn when the same plugin is listed multiple times in the plugins
