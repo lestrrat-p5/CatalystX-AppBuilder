@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00003 - Mar 05 2010
+    - Attempt to fix rt #55229. Now requires Catalyst::ScriptRunner, which is
+      bundled with Catalyst 5.80015 onward
+
 0.00003 - Mar 01 2010
     - Check for the existance of Makefile.PL to determine Catalyst root
 
