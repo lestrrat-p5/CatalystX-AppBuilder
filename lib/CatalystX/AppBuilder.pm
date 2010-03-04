@@ -106,8 +106,20 @@ sub bootstrap {
     my $appclass = $self->appname;
     $appclass->config( $self->config );
 
-    my $caller = caller(1);
-    if ($runsetup || (defined $caller && $caller eq 'main') || $ENV{HARNESS_ACTIVE}) {
+    # newer catalyst now uses Catalyst::ScriptRunner, which is obviously not
+    # in the 'main' package.
+    if (! $runsetup) {
+        # run setup if we were explicitly asked for, or we were called from
+        # within Catalyst::ScriptRunner
+        my $i = 1;
+        while (my $caller = caller($i++)) {
+            if ($caller->isa('Catalyst::ScriptRunner')) {
+                $runsetup = 1;
+                last;
+            }
+        }
+    }
+    if ($runsetup || $ENV{HARNESS_ACTIVE}) {
         my @plugins;
         my %plugins;
         foreach my $plugin (@{ $self->plugins }) {
