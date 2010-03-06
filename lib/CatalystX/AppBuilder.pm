@@ -90,7 +90,7 @@ sub BUILD {
             delete $appname->config->{root};
         }
         # Fugly, I know, but we need to load Catalyst in the app's namespace
-        # for manythings to take effect.
+        # for many things to take effect.
         eval <<"        EOCODE";
             package $appname;
             use Catalyst;
@@ -104,22 +104,26 @@ sub bootstrap {
     my $self = shift;
     my $runsetup = shift;
     my $appclass = $self->appname;
-    $appclass->config( $self->config );
 
-    # newer catalyst now uses Catalyst::ScriptRunner, which is obviously not
-    # in the 'main' package.
     if (! $runsetup) {
+        # newer catalyst now uses Catalyst::ScriptRunner.
         # run setup if we were explicitly asked for, or we were called from
         # within Catalyst::ScriptRunner
         my $i = 1;
         while (my $caller = caller($i++)) {
-            if ($caller->isa('Catalyst::ScriptRunner')) {
+            # DO NOT run setup if we're being recursively called from
+            # an inherited AppBuilder
+            if ($caller->isa('CatalystX::AppBuilder')) {
+                $runsetup = 0;
+                last;
+            } elsif ($caller->isa('Catalyst::ScriptRunner')) {
                 $runsetup = 1;
                 last;
             }
         }
     }
-    if ($runsetup || $ENV{HARNESS_ACTIVE}) {
+
+    if ($runsetup) {
         my @plugins;
         my %plugins;
         foreach my $plugin (@{ $self->plugins }) {
@@ -129,6 +133,7 @@ sub bootstrap {
                 push @plugins, $plugin;
             }
         }
+        $appclass->config( $self->config );
         $appclass->setup( @plugins );
     }
 }
