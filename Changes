@@ -1,7 +1,11 @@
 Changes
 =======
 
-0.00003 - Mar 05 2010
+0.00005 - Mar 06 2010
+    - Attempt to fix rt #55256. Prevents CatalystX::AppBuilder to run setup
+      if we're being called from within another CatalystX::AppBuilder.
+
+0.00004 - Mar 05 2010
     - Attempt to fix rt #55229. Now requires Catalyst::ScriptRunner, which is
       bundled with Catalyst 5.80015 onward
 
