@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00006 - Jul 20 2010
+    - Grrr, work with newer Catalyst
+
 0.00005 - Mar 06 2010
     - Attempt to fix rt #55256. Prevents CatalystX::AppBuilder to run setup
       if we're being called from within another CatalystX::AppBuilder.

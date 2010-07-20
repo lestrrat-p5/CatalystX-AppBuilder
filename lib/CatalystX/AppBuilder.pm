@@ -2,7 +2,7 @@ package CatalystX::AppBuilder;
 use Moose;
 use namespace::clean -except => qw(meta);
 
-our $VERSION = '0.00005';
+our $VERSION = '0.00006';
 
 has appname => (
     is => 'ro',
