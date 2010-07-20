@@ -141,7 +141,6 @@ sub bootstrap {
             }
         }
         $appclass->config( $self->config );
-warn "HERE";
         $appclass->setup( @plugins );
     }
 }
