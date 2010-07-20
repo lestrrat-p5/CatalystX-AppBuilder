@@ -2,6 +2,9 @@ Changes
 =======
 
 0.00006 - Jul 20 2010
+    - Grrr, remove stupid debug statement...
+
+0.00006 - Jul 20 2010
     - Grrr, work with newer Catalyst
 
 0.00005 - Mar 06 2010
