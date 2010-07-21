@@ -1,7 +1,10 @@
 Changes
 =======
 
-0.00006 - Jul 20 2010
+0.00008 - Jul 21 2010
+    - Grrr, fix what was supposed to be fixed in 0.00006 for real 
+
+0.00007 - Jul 20 2010
     - Grrr, remove stupid debug statement...
 
 0.00006 - Jul 20 2010
