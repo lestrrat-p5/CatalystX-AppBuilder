@@ -110,21 +110,21 @@ sub bootstrap {
         # run setup if we were explicitly asked for, or we were called from
         # within Catalyst::ScriptRunner
         my $i = 1;
+        $runsetup = 1;
         while (my @caller = caller($i++)) {
             my $package = $caller[0];
             my $sub     = $caller[3];
+
             # DO NOT run setup if we're being recursively called from
             # an inherited AppBuilder
-            if ($package->isa('CatalystX::AppBuilder')) {
-                if ($sub =~ /bootstrap$/) {
+            if ($package->isa('Class::MOP::Class')) {
+                if ($sub =~ /superclasses$/) {
                     $runsetup = 0;
                     last;
                 }
             } elsif ($package->isa('Catalyst::ScriptRunner')) {
-                $runsetup = 1;
                 last;
             } elsif ($package->isa('Catalyst::Restarter')) {
-                $runsetup = 1;
                 last;
             }
         }
@@ -135,11 +135,12 @@ sub bootstrap {
         my %plugins;
         foreach my $plugin (@{ $self->plugins }) {
             if ($plugins{$plugin}++) {
-                warn "$plugin appeaars multiple times in the plugin list! Ignoring...";
+                warn "$plugin appears multiple times in the plugin list! Ignoring...";
             } else {
                 push @plugins, $plugin;
             }
         }
+
         $appclass->config( $self->config );
         $appclass->setup( @plugins );
     }
