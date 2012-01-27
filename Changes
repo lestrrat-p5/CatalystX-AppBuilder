@@ -1,8 +1,10 @@
 Changes
 =======
 
+0.00009 - Jan 27 2010
     - Fix to allow applications installed into the perl installation to 
       use the inherited_path_to call.
+      (colinnewell [https://github.com/lestrrat/CatalystX-AppBuilder/pull/1])
 
 0.00008 - Jul 21 2010
     - Grrr, fix what was supposed to be fixed in 0.00006 for real 
