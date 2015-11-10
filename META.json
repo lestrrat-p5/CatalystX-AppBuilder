@@ -66,10 +66,10 @@
          "web" : "https://github.com/lestrrat/CatalystX-AppBuilder"
       }
    },
-   "version" : "0.00009",
+   "version" : "0.00010",
    "x_contributors" : [
       "Colin Newell <colin@opusvl.com>",
       "Colin Newell <colin.newell@gmail.com>",
-      "lestrrat <lestrrat+github@gmail.com>"
+      "Daisuke Maki <lestrrat+github@gmail.com>"
    ]
 }
