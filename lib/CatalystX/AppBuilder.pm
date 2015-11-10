@@ -167,7 +167,7 @@ sub inherited_path_to {
         $m .= '.pm';
         my $f = Path::Class::File->new($INC{$m})->parent;
         while ($f) {
-           if (-f $f->file('Makefile.PL') ) {
+           if (-f $f->file('Makefile.PL') || -f $f->file('dist.ini') ) {
                $f = $f->subdir(@paths)->stringify;
                last;
            }
