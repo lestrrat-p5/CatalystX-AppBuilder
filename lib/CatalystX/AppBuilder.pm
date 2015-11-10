@@ -167,12 +167,14 @@ sub inherited_path_to {
         $m .= '.pm';
         my $f = Path::Class::File->new($INC{$m})->parent;
         while ($f) {
-           if (-f $f->file('Makefile.PL') || -f $f->file('dist.ini') ) {
-               $f = $f->subdir(@paths)->stringify;
-               last;
-           }
-           last if $f->stringify eq $f->parent->stringify;
-           $f = $f->parent;
+            for my $stopper (qw(Makefile.PL Build.PL dist.ini minil.toml)) {
+                if (-f $f->file($stopper)) {
+                    $f = $f->subdir(@paths)->stringify;
+                    last;
+                }
+            }
+            last if $f->stringify eq $f->parent->stringify;
+            $f = $f->parent;
         }
         $f;
     } @inheritance;
