@@ -1,6 +1,10 @@
 Changes
 =======
 
+{{$NEXT}}
+    - Add Build.PL, dist.ini, and minil.toml as markers not to descend
+      further into searching (colinnewell [https://github.com/lestrrat/CatalystX-AppBuilder/pull/2] + lestrrat)
+
 0.00009 - Jan 27 2010
     - Fix to allow applications installed into the perl installation to 
       use the inherited_path_to call.
