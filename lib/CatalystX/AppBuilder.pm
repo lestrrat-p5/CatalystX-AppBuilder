@@ -166,11 +166,11 @@ sub inherited_path_to {
         $m =~ s/::/\//g;
         $m .= '.pm';
         my $f = Path::Class::File->new($INC{$m})->parent;
-        while ($f) {
+        DESCENT: while ($f) {
             for my $stopper (qw(Makefile.PL Build.PL dist.ini minil.toml)) {
                 if (-f $f->file($stopper)) {
                     $f = $f->subdir(@paths)->stringify;
-                    last;
+                    last DESCENT;
                 }
             }
             last if $f->stringify eq $f->parent->stringify;
