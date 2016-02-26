@@ -4,7 +4,7 @@
       "Daisuke Maki C<< <daisuke@endeworks.jp> >>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v2.2.0, CPAN::Meta::Converter version 2.142690",
+   "generated_by" : "Minilla/v3.0.1, CPAN::Meta::Converter version 2.150001",
    "license" : [
       "perl_5"
    ],
@@ -34,7 +34,7 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.38"
+            "Module::Build::Tiny" : "0.035"
          }
       },
       "develop" : {
@@ -57,19 +57,19 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/lestrrat/CatalystX-AppBuilder/issues"
+         "web" : "https://github.com/colinnewell/CatalystX-AppBuilder/issues"
       },
-      "homepage" : "https://github.com/lestrrat/CatalystX-AppBuilder",
+      "homepage" : "https://github.com/colinnewell/CatalystX-AppBuilder",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/lestrrat/CatalystX-AppBuilder.git",
-         "web" : "https://github.com/lestrrat/CatalystX-AppBuilder"
+         "url" : "git://github.com/colinnewell/CatalystX-AppBuilder.git",
+         "web" : "https://github.com/colinnewell/CatalystX-AppBuilder"
       }
    },
-   "version" : "0.00010",
+   "version" : "0.00011",
    "x_contributors" : [
-      "Colin Newell <colin@opusvl.com>",
       "Colin Newell <colin.newell@gmail.com>",
-      "Daisuke Maki <lestrrat+github@gmail.com>"
+      "Colin Newell <colin@opusvl.com>",
+      "lestrrat <lestrrat+github@gmail.com>"
    ]
 }

@@ -3,6 +3,10 @@ Changes
 
 {{$NEXT}}
 
+0.00011 2016-02-26T13:30:30Z
+
+    - Fixed bug introduced in 0.00010 [https://github.com/lestrrat/CatalystX-AppBuilder/pull/3]
+
 0.00010 2015-11-10T21:57:22Z
     - Add Build.PL, dist.ini, and minil.toml as markers not to descend
       further into searching (colinnewell [https://github.com/lestrrat/CatalystX-AppBuilder/pull/2] + lestrrat)
